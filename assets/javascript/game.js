@@ -1,53 +1,34 @@
-var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-var wins = 0;
-var losses = 0;
-var guessesLeft, YourGuesses, letterToGuess;
+//Global Variables//
+//======================================================================================
 
-resetGame();
-display();
+//Arrays and Variables for holding data
+var wordOptions = ["brown", "green", "blue", "indigo", "black", "white", "yellow", "orange", "purple", "teal", "red"];
+var selectedWord = "";
+var lettersinWord = [];
+var numBlanks = 0;
+var blankAndSuccesses = [];
+var wrongLetters = [];
 
-document.onkeyup = function(event) {
-  var guess = event.key;
-  if (guess === letterToGuess) {
-    win();
-  } else if (guessesLeft - 1 === 0) {
-    lost();
-  } else {
-    fail(guess);
-  }
+//Game Counters//
+var winCount = 0;
+var lossCount = 0;
+var guessesLeft = 9;
 
-  display();
-}
+//FUNCTIONS//
+//======================================================================================
+function startGame () {
+    selectedWord = wordOptions[Math.floor(Math.random() * wordOptions.length)];
+    lettersinWord = selectedWord.split("");
+    numBlanks = lettersinWord.length;
 
-function display() {
-  var winsP = document.getElementById("wins");
-  var losesP = document.getElementById("loses");
-  var guessLeft = document.getElementById("guessLeft");
-  var letterGuessed = document.getElementById("guessed");
-  winsP.innerHTML = wins;
-  losesP.innerHTML = loses;
-  guessLeft.innerHTML = guessesLeft;
-  letterGuessed.innerHTML = guessedLetters.join(',');
-}
+//Reset//
+guessesLeft = 9;
+wrongLetters = [];
+blanksAndSuccesses = [];
 
-function win() {
-  wins++;
-  resetGame();
-}
+//Testing
+console.log(selectedWord);
+console.log(lettersinWord);
+console.log(numBlanks);
 
-function lost() {
-  loses++;
-  resetGame();
-}
-
-function fail(letter) {
-  guessesLeft--;
-  guessedLetters.push(letter);
-}
-
-function resetGame() {
-  guessesLeft = 12;
-  guessedLetters = [];
-  letterToGuess = letters[Math.floor(Math.random() * letters.length)];
-  console.log("Letter to guess: " + letterToGuess);
 }
